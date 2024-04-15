@@ -1,0 +1,10 @@
+{% block content %}
+<h1>Добро подаловать</h1>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>Этот сайт только для зарегестрированных пользователей</p>
+    <p>{{ form.signin(type="submit", class="btn btn-primary") }}</p>
+    <p>{{ form.register(type="submit", class="btn btn-primary") }}</p>
+    {{message}}
+</form>
+{% endblock %}

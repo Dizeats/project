@@ -14,8 +14,11 @@ def main():
     @app.route('/', methods=['GET', 'POST'])
     def base():
         form = HelloForm()
-        if form.reg:
+        print(form.register.data)
+        if form.register.data:
             return redirect('/registration')
+        if form.signin.data:
+            return redirect('/signin')
         return render_template('base_rus.html', title='govno', form=form)
 
     @app.route('/signin')
