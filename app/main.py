@@ -70,18 +70,30 @@ def main():
             user.set_password(form.password.data)
             db_sess.add(user)
             db_sess.commit()
+            login_user(user, True)
             return redirect('/homepage')
         return render_template('registration_' + lang + '.html', title='Регистрация', form=form)
 
     @app.route('/homepage', methods=['GET', 'POST'])
     def homepage():
-        #проверка куки на регистрацию
+        if request.cookies.get('remember_token') != '':
+            print(current_user.email)
+        else:
+            return redirect('/')
         form = HomepageForm()
+        if form.logout.data:
+            return redirect('/logout')
         if form.submit.data:
             return form.name_product.data
         return render_template('homepage_' + lang + '.html', title='Главная', form=form)
 
-    app.run(port=8081, host='127.0.0.1')
+    @app.route('/logout')
+    def logout():
+        a = redirect('/')
+        a.set_cookie("remember_token", "", 0)
+        return a
+
+    app.run(port=8080, host='127.0.0.1')
 
 
 if __name__ == '__main__':
