@@ -1,3 +1,17 @@
-h1{
-color: red
+.navbar{
+    background-image: linear-gradient(to right, #4646ff, #e92bff);
+}
+form {
+  width: 20%;
+  height: 30px;
+  position: relative;
+}
+a1 {
+    font-family: "Orbitron";
+}
+form {
+    position: absolute; left: 40%; top: 200px;
+}
+h1 {
+    position: absolute; left: 40%; top: 150px;
 }
