@@ -6,6 +6,7 @@ from forms.signin import *
 from forms.homepage import *
 from data.users import User
 import requests
+from sqlite3 import *
 from flask_login import *
 
 app = Flask(__name__)
@@ -77,21 +78,24 @@ def main():
     @app.route('/homepage', methods=['GET', 'POST'])
     def homepage():
         if request.cookies.get('remember_token') != '':
-            print(current_user.email)
+            pass
         else:
             return redirect('/')
-        form = HomepageForm()
-        if form.logout.data:
-            return redirect('/logout')
-        if form.submit.data:
-            return form.name_product.data
-        return render_template('homepage_' + lang + '.html', title='Главная', form=form)
+        bas = connect('db/users.db')
+        cur = bas.cursor()
+        id_of_user = cur.execute('''SELECT id FROM users WHERE email = ?''', (current_user.email,)).fetchall()
+        products = cur.execute('''SELECT * FROM products WHERE user_id = ?''', (id_of_user[0][0], )).fetchall()
+        return render_template('test.html', products=products)
+        #form = HomepageForm()
+        #if form.submit.data:
+        #   return form.name_product.data
+        #return render_template('homepage_' + lang + '.html', title='Главная', form=form)
 
     @app.route('/logout')
     def logout():
-        a = redirect('/')
-        a.set_cookie("remember_token", "", 0)
-        return a
+        res = redirect('/')
+        res.set_cookie("remember_token", "", 0)
+        return res
 
     app.run(port=8080, host='127.0.0.1')
 
