@@ -1,0 +1,19 @@
+<body>
+    {% block content %}
+    <h1>Home page</h1>
+    <p>Enter the name of the product you are adding</p>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{form.name_product.label}}
+            {{ form.name_product(class="form-control") }}<br>
+            {% for error in form.name_product.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    </form>
+    {% endblock %}
+</body>
