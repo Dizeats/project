@@ -1,0 +1,30 @@
+{% block content %}
+
+<button type="button">
+    <li><a href="http://127.0.0.1:8080/logout" class="nav-link">Выйти</a>
+    </li>
+</button>
+<table>
+	<tr>
+		<td>id</td>
+		<td>Название</td>
+	</tr>
+	{% for el in products%}
+		<tr>
+			<td>{{el[0]}}</td>
+			<td>{{el[2]}}</td>
+		</tr>
+	{% endfor %}
+</table>
+{% endblock %}
+
+<style>
+	table, td, th {
+		border-collapse: collapse;
+		border: 3px solid #245488;
+	}
+	td, th {
+		padding: 10px 20px;
+  		text-align: center;
+	}
+</style>
