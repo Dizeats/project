@@ -5,18 +5,52 @@
     <li><a href="http://127.0.0.1:8080/logout" class="nav-link">Выйти</a>
     </li>
 </button>
-<p>Введите название добавляемого продукта</p>
+<table>
+	<tr>
+		<td>id</td>
+		<td>Название</td>
+	</tr>
+	{% for el in products%}
+		<tr>
+			<td>{{el[0]}}</td>
+			<td>{{el[2]}}</td>
+		</tr>
+	{% endfor %}
+</table>
 <form action="" method="post">
     {{ form.hidden_tag() }}
+    <p>Введите название товара, который хотите добавить</p>
     <p>
-        {{form.name_product.label}}
-        {{ form.name_product(class="form-control") }}<br>
-        {% for error in form.name_product.errors %}
+        {{form.name_added_product.label}}
+        {{ form.name_added_product(class="form-control") }}<br>
+        {% for error in form.name_added_product.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}
             </p>
         {% endfor %}
     </p>
-    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    <p>{{ form.add(type="submit", class="btn btn-primary") }}</p>
+    <p>Введите название товара, который хотите удалить</p>
+    <p>
+        {{form.name_deleted_product.label}}
+        {{ form.name_deleted_product(class="form-control") }}<br>
+        {% for error in form.name_deleted_product.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>{{ form.delete(type="submit", class="btn btn-primary") }}</p>
 </form>
 {% endblock %}
+
+<style>
+	table, td, th {
+		border-collapse: collapse;
+		border: 3px solid #245488;
+	}
+	td, th {
+		padding: 10px 20px;
+  		text-align: center;
+	}
+</style>

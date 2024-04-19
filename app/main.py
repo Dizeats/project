@@ -5,6 +5,7 @@ from forms.base import *
 from forms.signin import *
 from forms.homepage import *
 from data.users import User
+from data.products import Product
 import requests
 from sqlite3 import *
 from flask_login import *
@@ -77,19 +78,23 @@ def main():
 
     @app.route('/homepage', methods=['GET', 'POST'])
     def homepage():
-        if request.cookies.get('remember_token') != '':
-            pass
-        else:
+        if request.cookies.get('remember_token') == '':
             return redirect('/')
         bas = connect('db/users.db')
         cur = bas.cursor()
         id_of_user = cur.execute('''SELECT id FROM users WHERE email = ?''', (current_user.email,)).fetchall()
         products = cur.execute('''SELECT * FROM products WHERE user_id = ?''', (id_of_user[0][0], )).fetchall()
-        return render_template('test.html', products=products)
-        #form = HomepageForm()
-        #if form.submit.data:
-        #   return form.name_product.data
-        #return render_template('homepage_' + lang + '.html', title='Главная', form=form)
+        form = HomepageForm()
+        if form.add.data:
+            added_product = form.name_added_product.data
+            cur.execute('''INSERT INTO products(user_id, name) VALUES(?, ?)''', (id_of_user[0][0], added_product))
+        if form.delete.data:
+            deleted_product = form.name_deleted_product.data
+            print(deleted_product)
+            id_of_product = cur.execute('''SELECT id FROM products WHERE name = ?''', (deleted_product, )).fetchall()
+            print(id_of_product)
+            cur.execute('''DELETE FROM products WHERE id = ?''', (id_of_product[0][0], ))
+        return render_template('homepage_' + lang + '.html', products=products, title='Главная', form=form)
 
     @app.route('/logout')
     def logout():
