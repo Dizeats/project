@@ -87,14 +87,23 @@ def main():
         form = HomepageForm()
         if form.add.data:
             added_product = form.name_added_product.data
+            check_product = cur.execute('''SELECT id FROM products WHERE name = ?''', (added_product, )).fetchall()
+            if check_product:
+                er = 'Такой продукт уже есть'
+                return render_template('homepage_' + lang + '.html', products=products, title='Главная', form=form, er=er)
             cur.execute('''INSERT INTO products(user_id, name) VALUES(?, ?)''', (id_of_user[0][0], added_product))
+            bas.commit()
+            redirect('/homepage')
         if form.delete.data:
             deleted_product = form.name_deleted_product.data
-            print(deleted_product)
             id_of_product = cur.execute('''SELECT id FROM products WHERE name = ?''', (deleted_product, )).fetchall()
-            print(id_of_product)
+            if not id_of_product:
+                er = 'Такого продукта нет'
+                return render_template('homepage_' + lang + '.html', products=products, title='Главная', form=form, er=er)
             cur.execute('''DELETE FROM products WHERE id = ?''', (id_of_product[0][0], ))
-        return render_template('homepage_' + lang + '.html', products=products, title='Главная', form=form)
+            bas.commit()
+            redirect('/homepage')
+        return render_template('homepage_' + lang + '.html', products=products, title='Главная', form=form, er='')
 
     @app.route('/logout')
     def logout():

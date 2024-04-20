@@ -30,6 +30,9 @@
         {% endfor %}
     </p>
     <p>{{ form.add(type="submit", class="btn btn-primary") }}</p>
+</form>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
     <p>Введите название товара, который хотите удалить</p>
     <p>
         {{form.name_deleted_product.label}}
@@ -42,6 +45,7 @@
     </p>
     <p>{{ form.delete(type="submit", class="btn btn-primary") }}</p>
 </form>
+<p>{{er}}</p>
 {% endblock %}
 
 <style>
