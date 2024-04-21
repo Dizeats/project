@@ -53,13 +53,15 @@ def main():
                 user = db_sess.query(User).filter(User.email == form.email.data).first()
                 if user and user.check_password(form.password.data):
                     login_user(user, remember=form.remember_me.data)
-                    return redirect("/homepage")
+                    res = redirect('/homepage')
+                    res.set_cookie('temporary', '1', 1000)
+                    return res
                 return render_template('signin_' + lang + '.html', message="Неправильный логин или пароль", form=form,
                                        title='Вход')
             return render_template('signin_' + lang + '.html', form=form, title='Вход')
         else:
             res = redirect('/homepage')
-            res.set_cookie('temporary', '1', 1000)
+            res.set_cookie('temporary', '1', 10000)
             return res
 
     @app.route('/registration', methods=['GET', 'POST'])
@@ -85,7 +87,8 @@ def main():
 
     @app.route('/homepage', methods=['GET', 'POST'])
     def homepage():
-        if not request.cookies.get('remember_token') and not requests.cookies.get('temporary'):
+        print(request.cookies.get('temporary'))
+        if not request.cookies.get('remember_token') and not request.cookies.get('temporary'):
             return redirect('/')
         bas = connect('db/users.db')
         cur = bas.cursor()
