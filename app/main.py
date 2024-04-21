@@ -5,7 +5,7 @@ from forms.base import *
 from forms.signin import *
 from forms.homepage import *
 from data.users import User
-from data.products import Product
+import os
 import requests
 from sqlite3 import *
 from flask_login import *
@@ -124,7 +124,8 @@ def main():
         res.set_cookie("remember_token", "", 0)
         return res
 
-    app.run(port=8080, host='127.0.0.1')
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
 
 
 if __name__ == '__main__':
