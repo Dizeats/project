@@ -28,7 +28,7 @@ def main():
     @app.route('/', methods=['GET', 'POST'])
     def base():
         global lang
-        ip_user = request.remote_addr
+        ip_user = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
         lang = 'rus'
         ip_info = requests.get(f'https://geo.ipify.org/api/v2/country?apiKey=at_YqASaGzc2VdPMbqg14tPKcZ4UXz0A&ipAddress={ip_user}')
         if ip_info.json()['location']['country'] == 'RU' or ip_info.json()['location']['country'] == 'ZZ':
