@@ -5,7 +5,7 @@ from flask_login import *
 
 
 class SigninForm(FlaskForm, UserMixin):
-    email = EmailField('Почта', validators=[DataRequired()])
-    password = PasswordField('Пароль', validators=[DataRequired()])
-    remember_me = BooleanField('Запомнить меня')
-    submit = SubmitField('Войти')
+    email = EmailField('Почта/email', validators=[DataRequired()])
+    password = PasswordField('Пароль/password', validators=[DataRequired()])
+    remember_me = BooleanField('Запомнить меня/remember me')
+    submit = SubmitField('Войти/sign in')
