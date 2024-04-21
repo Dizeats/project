@@ -3,5 +3,5 @@ from wtforms import SubmitField
 
 
 class HelloForm(FlaskForm):
-    signin = SubmitField('Войти')
-    register = SubmitField('Зарегестрироваться')
+    signin = SubmitField('Войти/Sign in')
+    register = SubmitField('Зарегестрироваться/Sign up')
