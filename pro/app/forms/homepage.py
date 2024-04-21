@@ -4,6 +4,8 @@ from wtforms.validators import DataRequired
 
 
 class HomepageForm(FlaskForm):
-    name_product = StringField('Название продукта', validators=[DataRequired()])
-    submit = SubmitField('Добавить')
-    logout = SubmitField('Выйти')
+    name_added_product = StringField('Название продукта', validators=[DataRequired()])
+    name_deleted_product = StringField('Название продукта', validators=[DataRequired()])
+    add = SubmitField('Добавить')
+    delete = SubmitField('Удалить')
+    clear = SubmitField('Очистить список')
