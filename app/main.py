@@ -29,12 +29,12 @@ def main():
     def base():
         global lang
         ip_user = request.remote_addr
-        lang = 'rus'  # временно
-        # ip_info = requests.get(f'https://geo.ipify.org/api/v2/country?apiKey=at_YqASaGzc2VdPMbqg14tPKcZ4UXz0A&ipAddress={ip_user}')
-        # if ip_info.json()['location']['country'] == 'RU':
-        #   lang = 'rus'
-        # else:
-        #   lang = 'eng'
+        lang = 'rus'
+        ip_info = requests.get(f'https://geo.ipify.org/api/v2/country?apiKey=at_YqASaGzc2VdPMbqg14tPKcZ4UXz0A&ipAddress={ip_user}')
+        if ip_info.json()['location']['country'] == 'RU' or ip_info.json()['location']['country'] == 'ZZ':
+            lang = 'rus'
+        else:
+            lang = 'eng'
         form = HelloForm()
         if form.register.data:
             return redirect('/registration')
