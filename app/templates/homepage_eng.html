@@ -10,7 +10,7 @@
 <body style="">
     <nav class="navbar navbar-expand-xxl">
             <div class="container">
-                <a1 href="" style="" class="navbar-brand">Домашняя страница</a1>
+                <a1 href="" style="" class="navbar-brand">Home page</a1>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                     aria-controls="navbarContent" aria-expanded="false">
                     <span class="navbar-toggler-icon"></span>
@@ -18,7 +18,7 @@
 
             <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav mr-auto mb-2">
-                    <li style="" ><a href="/logout" class="nav-link">Выйти</a>
+                    <li style="" ><a href="/logout" class="nav-link">Exit</a>
                     </li>
                 </ul>
             </div>
@@ -27,9 +27,9 @@
     {% block content %}
     <p></p>
     <table>
-        <th class="">Ваш список покупок</th>
+        <th class="">Your shopping list</th>
         <tr>
-            <td class="">Название</td>
+            <td class="">Name</td>
         </tr>
         {% for el in products%}
         <tr>
@@ -37,14 +37,14 @@
         </tr>
         {% endfor %}
     </table>
-    <p>Всего продуктов: {{counter}}</p>
+    <p>Total products: {{counter}}</p>
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>{{ form.clear(type="submit", class="btn btn-primary") }}</p>
     </form>
     <form action="" method="post">
         {{ form.hidden_tag() }}
-        <p>Введите название товара, который хотите добавить</p>
+        <p>Enter the name of the product you want to add</p>
         <p>
             {{form.name_added_product.label}}
             {{ form.name_added_product(class="form-control") }}<br>
@@ -58,7 +58,7 @@
     </form>
     <form action="" method="post">
         {{ form.hidden_tag() }}
-        <p>Введите название товара, который хотите удалить</p>
+        <p>Enter the name of the product you want to delete</p>
         <p>
             {{form.name_deleted_product.label}}
             {{ form.name_deleted_product(class="form-control") }}<br>

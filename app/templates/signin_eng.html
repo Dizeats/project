@@ -20,17 +20,17 @@
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav mr-auto mb-2">
                 <li class="nav-item">
-                    <a href="/signin" class="nav-link">Войти</a>
+                    <a href="/registration" class="nav-link">Registration</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/" class="nav-link">Вернуться на главную страницу</a>
+                    <a href="/" class="nav-link">Go back to the main page</a>
                 </li>
             </ul>
         </div>
         </div>
     </nav>
-     {% block content %}
-    <h1 class="fadeIn">Регистрация</h1>
+    {% block content %}
+    <h1 class="fadeIn">Log in</h1>
     <form class="fadeIn" action="" method="post">
         {{ form.hidden_tag() }}
         <p>
@@ -51,16 +51,9 @@
                 </p>
             {% endfor %}
         </p>
-        <p>
-            {{ form.password_again.label }}<br>
-            {{ form.password_again(class="form-control", type="password") }}<br>
-            {% for error in form.password_again.errors %}
-                <p class="alert alert-danger" role="alert">
-                    {{ error }}
-                </p>
-            {% endfor %}
+        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
         <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-        {{message}}
+        <div>{{message}}</div>
     </form>
     {% endblock %}
 </body>

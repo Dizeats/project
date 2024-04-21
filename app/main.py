@@ -1,3 +1,5 @@
+import requests.cookies
+
 from data import db_session
 from flask import *
 from forms.user import *
@@ -56,7 +58,9 @@ def main():
                                        title='Вход')
             return render_template('signin_' + lang + '.html', form=form, title='Вход')
         else:
-            return redirect('/homepage')
+            res = redirect('/homepage')
+            res.set_cookie('temporary', '1', 1000)
+            return res
 
     @app.route('/registration', methods=['GET', 'POST'])
     def registration():
@@ -81,7 +85,7 @@ def main():
 
     @app.route('/homepage', methods=['GET', 'POST'])
     def homepage():
-        if not request.cookies.get('remember_token'):
+        if not request.cookies.get('remember_token') and not requests.cookies.get('temporary'):
             return redirect('/')
         bas = connect('db/users.db')
         cur = bas.cursor()
@@ -122,6 +126,7 @@ def main():
     def logout():
         res = redirect('/')
         res.set_cookie("remember_token", "", 0)
+        res.set_cookie('temporary', '', 0)
         return res
 
     port = int(os.environ.get("PORT", 5000))
