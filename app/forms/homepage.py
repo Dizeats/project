@@ -8,3 +8,4 @@ class HomepageForm(FlaskForm):
     name_deleted_product = StringField('Название продукта', validators=[DataRequired()])
     add = SubmitField('Добавить')
     delete = SubmitField('Удалить')
+    clear = SubmitField('Очистить список')

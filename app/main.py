@@ -92,8 +92,6 @@ def main():
         if form.add.data:
             added_product = form.name_added_product.data
             check_product = cur.execute('''SELECT user_id FROM products WHERE name = ?''', (added_product,)).fetchall()
-            print(check_product)
-            print(id_of_user)
             if check_product and check_product[0][0] == id_of_user[0][0]:
                 error = 'Такой продукт уже есть'
                 return render_template('homepage_' + lang + '.html', products=products, title='Главная', form=form,
@@ -112,6 +110,10 @@ def main():
             cur.execute('''DELETE FROM products WHERE id = ?''', (id_of_product[0][0],))
             bas.commit()
             form.name_deleted_product.data = ''
+            return redirect('/homepage')
+        if form.clear.data:
+            cur.execute('''DELETE FROM products WHERE user_id = ?''', (id_of_user[0][0], ))
+            bas.commit()
             return redirect('/homepage')
         return render_template('homepage_' + lang + '.html', products=products, title='Главная', form=form, error='',
                                counter=counter_of_products)

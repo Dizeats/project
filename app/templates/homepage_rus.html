@@ -20,6 +20,10 @@
 <p>Всего продуктов: {{counter}}</p>
 <form action="" method="post">
     {{ form.hidden_tag() }}
+    <p>{{ form.clear(type="submit", class="btn btn-primary") }}</p>
+</form>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
     <p>Введите название товара, который хотите добавить</p>
     <p>
         {{form.name_added_product.label}}
