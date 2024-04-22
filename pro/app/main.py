@@ -32,11 +32,11 @@ def main():
         global lang
         ip_user = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
         lang = 'rus'
-        ip_info = requests.get(f'https://geo.ipify.org/api/v2/country?apiKey=at_YqASaGzc2VdPMbqg14tPKcZ4UXz0A&ipAddress={ip_user}')
+        """ip_info = requests.get(f'https://geo.ipify.org/api/v2/country?apiKey=at_YqASaGzc2VdPMbqg14tPKcZ4UXz0A&ipAddress={ip_user}')
         if ip_info.json()['location']['country'] == 'RU' or ip_info.json()['location']['country'] == 'ZZ':
             lang = 'rus'
         else:
-            lang = 'eng'
+            lang = 'eng'"""
         form = HelloForm()
         if form.register.data:
             return redirect('/registration')
