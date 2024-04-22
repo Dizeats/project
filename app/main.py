@@ -84,7 +84,6 @@ def main():
 
     @app.route('/homepage', methods=['GET', 'POST'])
     def homepage():
-        print(request.cookies.get('temporary'))
         if not request.cookies.get('remember_token') and not request.cookies.get('temporary'):
             return redirect('/')
         bas = connect('db/users.db')
