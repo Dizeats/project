@@ -1,0 +1,7 @@
+form {
+  width: 40%;
+  position: relative;
+}
+.navbar{
+    background-image: linear-gradient(to right, #4646ff, #e92bff);
+}
